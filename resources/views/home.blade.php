@@ -454,8 +454,9 @@
 <!--Internal  index js -->
 <script src="{{URL::asset('assets/js/index.js')}}"></script>
 <script src="{{URL::asset('assets/js/jquery.vmap.sampledata.js')}}"></script>
-<script>
+<!-- <script>
 $(function () {
+
     var ctx = document.getElementById("myChart").getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
@@ -504,5 +505,73 @@ $(function () {
         }
     });
 });
-</script>	
-@endsection
+</script>	-->
+<script>
+
+	ajaxGetPostMonthlyData:function()
+	{
+	
+			var urlPath ='http://'+ window.location.hostname + '/get-post-chart-data';
+			var request=$.ajax({
+				method:'GET',
+				url:urlPath,
+			});
+			request.done(function(response)
+			{
+				charts.createCompletedJobsChart(response);
+			});
+	},
+$(function () {
+	this.ajaxGetPostMonthlyData();
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels:response.months, 
+			// ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [{
+            	// lineTension:0.3,
+            	// pointRadius:5,
+            	// pointHoverRadius:5,
+            	// pointHitRadius:20,
+            	// pointBorderWidth:2,
+                // label: '# of Votes',
+				data:response.post_count_data,
+                // data: [9, 8, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                        // maxTicksLimit:5
+                    }
+                }]
+            },
+            legend:{
+            	display:false
+            }
+
+        }
+    });
+});
+</script>
+@endsection 

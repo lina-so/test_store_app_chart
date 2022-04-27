@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LocalizationController;
+use App\Http\Controllers\Stock;
 //  use App\Http\Controllers\PostController;
 
 /*
@@ -20,8 +21,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get("stocks", [ App\Http\Controllers\StockController::class, 'index']);
+Route::get("stock/add", [ App\Http\Controllers\StockController::class, 'create']);
+Route::post("stock/add", [ App\Http\Controllers\StockController::class, 'store']);
+
+Route::get("stock/chart", [ App\Http\Controllers\StockController::class, 'chart']);
+
+
 //chartjs
-Route::get('/get-post-chart-data', [ App\Http\Controllers\PostController::class, 'getMonthlyPostData']);
+// Route::get('/get-post-chart-data', [ App\Http\Controllers\PostController::class, 'getMonthlyPostData']);
 
 //Localization Route
 Route::get("locale/{lange}", [LocalizationController::class, 'setLang']);
@@ -46,6 +54,8 @@ Route::get('/test',function(){
 });
 
 Route::get('/{page}', [AdminController::class, 'index']);
+
+
 
 
 

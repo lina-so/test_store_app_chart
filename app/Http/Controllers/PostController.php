@@ -32,8 +32,8 @@ class PostController extends Controller
                   $monthName = $unformatted_date->format('F');
                   $month_number=$unformatted_date->format('m');
                   $month_array[$month_number]=$monthName;
-        //          echo '<pre>';
-        // print_r($month_array);
+                //          echo '<pre>';
+                // print_r($month_array);   
                
 
            }
@@ -66,7 +66,7 @@ class PostController extends Controller
                 array_push($month_name_array,$month_name);
             }
         }
-    //    $month_array=$this->allPosts();
+       $month_array=$this->allPosts();
     $max_no=max($monthly_post_count_array);
     $max=round(($max_no + 10/2)/10)*10;
        $monthly_post_data_array=array(
